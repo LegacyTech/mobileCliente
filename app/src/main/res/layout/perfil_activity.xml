@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/perfil_nome_cliente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Teste da Silva Campos"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button"
+            android:src="@drawable/ic_folder_shared_black_36dp"
+            android:layout_marginBottom="40dp"
+            android:padding="5dp"
+            android:onClick="documentosAcitivity"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Próximas viagens"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+        <ListView
+            android:id="@+id/lista_proximas_viagens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Histórico de suas viagens"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+        <ListView
+            android:id="@+id/lista_historico_viagens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+</LinearLayout>

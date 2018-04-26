@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:id="@+id/capa_viagem"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/guaruja"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="3dp">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_room_black_18dp"/>
+
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Origem: "/>
+
+        <TextView
+            android:id="@+id/list_origem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" São Paulo"
+            android:layout_marginRight="30dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_near_me_black_18dp"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Destino: "/>
+
+
+        <TextView
+            android:id="@+id/list_destino"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guarujá"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="3dp">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_date_range_black_18dp"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data de ida: "/>
+
+        <TextView
+            android:id="@+id/list_dtIda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18/04/2018"
+            android:layout_marginRight="25dp"/>
+
+        <TextView
+            android:id="@+id/list_hrSaida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11:30:00"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="3dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_monetization_on_black_18dp"/>
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preço: R$"/>
+        <TextView
+            android:id="@+id/list_preco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 55,00"/>
+    </LinearLayout>
+
+</LinearLayout>
