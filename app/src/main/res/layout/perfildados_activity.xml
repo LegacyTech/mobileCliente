@@ -16,6 +16,7 @@
             android:gravity="center">
 
             <EditText
+                android:id="@+id/nome_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nome"/>
@@ -27,6 +28,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
         <EditText
+            android:id="@+id/sobrenome_perfildados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Sobrenome"/>
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
         <EditText
+            android:id="@+id/cpf_perfildados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="CPF"/>
@@ -54,7 +57,7 @@
             android:layout_marginBottom="10dp">
 
             <Spinner
-                android:id="@+id/dia_perfil"
+                android:id="@+id/dia_perfildados"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
@@ -62,7 +65,7 @@
             </Spinner>
 
             <Spinner
-                android:id="@+id/mes_perfil"
+                android:id="@+id/mes_perfildados"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
@@ -70,7 +73,7 @@
             </Spinner>
 
             <Spinner
-                android:id="@+id/ano_perfil"
+                android:id="@+id/ano_perfildados"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
@@ -109,6 +112,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <EditText
+                android:id="@+id/celular_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Celular"/>
@@ -118,6 +122,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <EditText
+                android:id="@+id/telefone_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Telefone"/>
@@ -127,6 +132,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <EditText
+                android:id="@+id/email_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"/>
@@ -138,6 +144,7 @@
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorPrimary">
             <EditText
+                android:id="@+id/senha_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -149,17 +156,20 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <EditText
+                android:id="@+id/cep_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Cep"/>
         </android.support.design.widget.TextInputLayout>
         <Spinner
+            android:id="@+id/estado_perfildados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp">
         </Spinner>
         <Spinner
+            android:id="@+id/cidade_perfildados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -170,6 +180,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <EditText
+                android:id="@+id/logradouro_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Logradouro"/>
@@ -179,6 +190,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <EditText
+                android:id="@+id/bairro_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Bairro"/>
@@ -188,6 +200,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <EditText
+                android:id="@+id/numero_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Número"/>
