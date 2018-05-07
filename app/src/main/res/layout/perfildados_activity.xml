@@ -60,7 +60,8 @@
                 android:id="@+id/dia_perfildados"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textAlignment="center">
 
             </Spinner>
 
@@ -68,7 +69,8 @@
                 android:id="@+id/mes_perfildados"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textAlignment="center">
 
             </Spinner>
 
@@ -76,7 +78,9 @@
                 android:id="@+id/ano_perfildados"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textAlignment="center">
+
 
             </Spinner>
 
@@ -89,15 +93,18 @@
             android:orientation="horizontal">
 
             <RadioGroup
+                android:id="@+id/groupsexo_perfildados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/rdoM_perfildados"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Masculino" />
                 <RadioButton
+                    android:id="@+id/rdoF_perfildados"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Feminino" />

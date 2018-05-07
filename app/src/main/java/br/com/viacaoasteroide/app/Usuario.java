@@ -11,6 +11,7 @@ public class Usuario {
     private String sobrenome;
     private String cpf;
     private String rg;
+    private  String dtNasc;
     int idEndereco;
     private String sexo;
     private String celular;
@@ -125,4 +126,11 @@ public class Usuario {
         this.idSubPassageiros = idSubPassageiros;
     }
 
+    public String getDtNasc() {
+        return dtNasc;
+    }
+
+    public void setDtNasc(String dtNasc) {
+        this.dtNasc = dtNasc;
+    }
 }
