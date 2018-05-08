@@ -5,14 +5,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -20,8 +19,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Created by 16255204 on 04/04/2018.
@@ -42,6 +42,7 @@ public class PerfilDadosActivity extends AppCompatActivity {
 
     String API_URL;
     String estadoAtual;
+    int idCidadeAtual = 0;
     boolean novo;
 
 
@@ -100,7 +101,6 @@ public class PerfilDadosActivity extends AppCompatActivity {
                 estadoAtual = adapterEstado.getItem(i);
                 adapterCidade.clear();
                 new populaCidade().execute();
-
             }
 
             @Override
@@ -245,7 +245,50 @@ public class PerfilDadosActivity extends AppCompatActivity {
         }
     }
 
+    //Seta o ID da cidade atual
+    class getIdCidade extends AsyncTask<Void, Void, Void>{
 
+        String cidadeSelecionada = adapterCidade.getItem(cidade.getSelectedItemPosition());
+        String retornoApi;
+        int idCidade;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            retornoApi = Http.get(API_URL + "/Endereco/CidadeID?nomeCidade=" + cidadeSelecionada);
+
+            try{
+
+                JSONObject json = new JSONObject(retornoApi);
+
+                if ( json.getBoolean("sucesso") ){
+
+                    idCidade = json.getInt("resultado");
+
+                }else{
+
+                    idCidade = 1;
+
+                }
+
+            } catch (Exception e ){
+
+            }
+
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            idCidadeAtual = idCidade;
+        }
+    }
+
+
+    //Pega todos os dados referente ao usuario
     public Usuario getUsuario(){
 
         String dia = adapterDia.getItem(this.dia.getSelectedItemPosition());
@@ -275,28 +318,41 @@ public class PerfilDadosActivity extends AppCompatActivity {
         return usuario;
     }
 
+
+    //Pega todos os dados referente a endereço
     public Endereco getEndereco(){
 
         Endereco endereco = new Endereco();
+        new getIdCidade().execute();
 
-        endereco.setBairro( txt_bairro.getText().toString() );
-        endereco.setLogradouro( txt_logradouro.getText().toString() );
         endereco.setIdTipoEndereco( 1 );
         endereco.setCep( txt_cep.getText().toString() );
-        endereco.setCodCidade( getIdCidade("Itapevi") );
+        endereco.setLogradouro( txt_logradouro.getText().toString() );
+        endereco.setBairro( txt_bairro.getText().toString() );
+        endereco.setNumero( txt_numero.getText().toString() );
+        endereco.setCodCidade( idCidadeAtual );
 
         return endereco;
 
     }
 
-    public int getIdCidade(String Cidade){
+    public void salvar(View v){
 
-        int id = 0;
+        Usuario usuario = getUsuario(); //Pega o endereco
+        Endereco endereco = getEndereco(); //Pega o usuario
 
+        if(usuario.getNome( ).equals(""));
+        usuario.getSobrenome( );
+        usuario.getCpf( );
+        usuario.getDtNasc( );
+        usuario.getSexo( );
+        usuario.getTelefone( );
+        usuario.getCelular( );
+        usuario.getEmail( );
+        usuario.getSenha( );
 
-
-        return id;
     }
+
 
     //Metodos Menu
     @Override

@@ -12,7 +12,7 @@ public class Usuario {
     private String cpf;
     private String rg;
     private  String dtNasc;
-    int idEndereco;
+    private int idEndereco;
     private String sexo;
     private String celular;
     private String telefone;

@@ -12,6 +12,7 @@ public class Endereco {
     private int idTipoEndereco;
     private String cep;
     private int codCidade;
+    private String numero;
 
 
     public int getIdEndereco() {
@@ -60,5 +61,13 @@ public class Endereco {
 
     public void setCodCidade(int codCidade) {
         this.codCidade = codCidade;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 }
