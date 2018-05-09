@@ -341,15 +341,31 @@ public class PerfilDadosActivity extends AppCompatActivity {
         Usuario usuario = getUsuario(); //Pega o endereco
         Endereco endereco = getEndereco(); //Pega o usuario
 
-        if(usuario.getNome( ).equals(""));
-        usuario.getSobrenome( );
-        usuario.getCpf( );
-        usuario.getDtNasc( );
-        usuario.getSexo( );
-        usuario.getTelefone( );
-        usuario.getCelular( );
-        usuario.getEmail( );
-        usuario.getSenha( );
+        //Verifica campo a campo se ocorreu erro
+        if(usuario.getNome( ).equals(""))
+            txt_nome.setError("O nome não pode estar em branco !");
+        if(usuario.getSobrenome( ).equals(""))
+            txt_sobrenome.setError("O sobrenome não pode estar em branco !");
+        if(usuario.getCpf( ).equals(""))
+            txt_cpf.setError("O CPF não pode estar em branco !");
+        if(usuario.getTelefone( ).equals(""))
+            txt_telefone.setError("O telefone não pode estar em branco !");
+        if(usuario.getCelular( ).equals(""))
+            txt_celular.setError("O celular não pode estar em branco !");
+        if(usuario.getEmail( ).equals(""))
+            txt_email.setError("O email não pode estar em branco !");
+        if(usuario.getSenha( ).equals(""))
+            txt_senha.setError("A senha não pode estar em branco !");
+        if(endereco.getCep().equals(""))
+            txt_cep.setError("O CEP não pode estar em branco");
+        if(endereco.getLogradouro().equals(""))
+            txt_logradouro.setError("O logradouro não pode estar em branco");
+        if(endereco.getBairro().equals(""))
+            txt_bairro.setError("O bairro não pode estar em branco");
+        if(endereco.getNumero().equals(""))
+            txt_numero.setError("O número não pode estar em branco");
+
+
 
     }
 

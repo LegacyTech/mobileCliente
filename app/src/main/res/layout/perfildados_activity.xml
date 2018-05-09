@@ -19,6 +19,7 @@
                 android:id="@+id/nome_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
                 android:hint="Nome"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -31,6 +32,7 @@
             android:id="@+id/sobrenome_perfildados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPersonName"
             android:hint="Sobrenome"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -41,6 +43,7 @@
             android:id="@+id/cpf_perfildados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:hint="CPF"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -123,6 +126,7 @@
                 android:id="@+id/celular_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="Celular"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -133,6 +137,7 @@
                 android:id="@+id/telefone_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="Telefone"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -143,6 +148,7 @@
                 android:id="@+id/email_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:hint="Email"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -167,7 +173,8 @@
                 android:id="@+id/cep_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Cep"/>
+                android:inputType="number"
+                android:hint="CEP"/>
         </android.support.design.widget.TextInputLayout>
         <Spinner
             android:id="@+id/estado_perfildados"
@@ -191,6 +198,7 @@
                 android:id="@+id/logradouro_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
                 android:hint="Logradouro"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -201,6 +209,7 @@
                 android:id="@+id/bairro_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
                 android:hint="Bairro"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -211,6 +220,7 @@
                 android:id="@+id/numero_perfildados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="Número"/>
         </android.support.design.widget.TextInputLayout>
         <Button
