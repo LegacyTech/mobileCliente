@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
 
 
             HashMap<String, String> valores = new HashMap<>();
-            valores.put("usuario", _usuario);
+            valores.put("email", _usuario);
             valores.put("senha", _senha);
 
 

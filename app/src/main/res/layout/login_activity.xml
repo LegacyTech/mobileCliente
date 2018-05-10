@@ -28,9 +28,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:inputType="textPersonName"
-            android:hint="Usuário"
-            android:text="Teste"/>
+            android:inputType="textEmailAddress"
+            android:hint="Email"
+            android:text="fulano@hotmail.com"/>
 
     </android.support.design.widget.TextInputLayout>
 

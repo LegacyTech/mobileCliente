@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -37,7 +39,7 @@ public class PerfilDadosActivity extends AppCompatActivity {
     ArrayList<String> array_anos = new ArrayList<>();
     ArrayAdapter<String> adapterDia, adapterMes, adapterAno;
     ArrayAdapter<String> adapterEstado , adapterCidade;
-    EditText txt_nome, txt_sobrenome, txt_cpf, txt_telefone, txt_celular, txt_email, txt_senha, txt_cep, txt_logradouro, txt_bairro, txt_numero ;
+    EditText txt_nome, txt_sobrenome, txt_rg, txt_cpf, txt_telefone, txt_celular, txt_email, txt_senha, txt_cep, txt_logradouro, txt_bairro, txt_numero ;
     RadioGroup sexo;
 
     String API_URL;
@@ -50,6 +52,9 @@ public class PerfilDadosActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.perfildados_activity);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Mostrar o botão de voltar
+        getSupportActionBar().setHomeButtonEnabled(true);      //Ativar o botão de voltar
 
         API_URL = getString(R.string.API_URL);
 
@@ -121,17 +126,17 @@ public class PerfilDadosActivity extends AppCompatActivity {
         txt_bairro = findViewById(R.id.bairro_perfildados);
         txt_numero = findViewById(R.id.numero_perfildados);
         txt_cpf = findViewById(R.id.cpf_perfildados);
+        txt_rg = findViewById(R.id.rg_perfildados);
         sexo = findViewById(R.id.groupsexo_perfildados);
 
         txt_cpf.addTextChangedListener(MaskEditUtil.mask(txt_cpf, MaskEditUtil.FORMAT_CPF)); //Mascara
         txt_telefone.addTextChangedListener(MaskEditUtil.mask(txt_telefone, MaskEditUtil.FORMAT_FONE)); //Mascara
         txt_celular.addTextChangedListener(MaskEditUtil.mask(txt_celular, MaskEditUtil.FORMAT_CELULAR)); //Mascara
+        txt_cep.addTextChangedListener(MaskEditUtil.mask(txt_cep , MaskEditUtil.FORMAT_CEP)); //Mascara
+        txt_rg.addTextChangedListener(MaskEditUtil.mask(txt_rg, MaskEditUtil.FORMAT_RG));//Mascara
 
         //Verificação
         btn_cad_usuario = findViewById(R.id.btn_cad_usuario);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Mostrar o botão de voltar
-        getSupportActionBar().setHomeButtonEnabled(true);      //Ativar o botão de voltar
 
         novo = getIntent().getBooleanExtra( "novo" , false ); //Fala se é cadastro novo ou atualização
 
@@ -287,15 +292,95 @@ public class PerfilDadosActivity extends AppCompatActivity {
         }
     }
 
+    //adiciona o usuario
+    public class addUsuario extends AsyncTask<Usuario, Void, Void>{
+
+        String retornoApi;
+
+        @Override
+        protected Void doInBackground(Usuario... usuarios) {
+
+            for( Usuario user : usuarios ){
+
+                //Monta o post a ser enviado a API
+                HashMap dados = new HashMap<String, String>();
+                dados.put("nome" , user.getNome() );
+                dados.put("sobrenome" , user.getSobrenome() );
+                dados.put("cpf" , user.getCpf() );
+                dados.put("rg" , user.getRg() );
+                dados.put("sexo" , user.getSexo() );
+                dados.put("celular" , user.getCelular() );
+                dados.put("telefone" , user.getTelefone() );
+                dados.put("senha" , user.getSenha() );
+                dados.put("email" , user.getEmail() );
+                dados.put("dtNasc" , user.getDtNasc() );
+
+                retornoApi = Http.post(API_URL + "/Usuario/Inserir", dados);
+
+                try{
+
+                    JSONObject retornoJson = new JSONObject(retornoApi);
+
+                    boolean sucesso = retornoJson.getBoolean("sucesso");
+
+                    //Verifica se foi realmente cadastrado
+                    if( sucesso ){
+
+
+
+                    }
+
+                } catch (Exception e ){
+
+                }
+
+            }
+
+            return null;
+        }
+
+    }
+
+    //adiciona o endereco do usuario
+    public class addEndereco extends AsyncTask<Endereco, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Endereco... enderecos) {
+
+            for( Endereco end : enderecos ){
+
+                //Monta o post a ser enviado a API
+                HashMap dados = new HashMap<String, String>();
+
+                /*
+                    Realizar o CAD ENDEREÇO, FALTA A API
+                */
+
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            finish();
+
+        }
+    }
+
 
     //Pega todos os dados referente ao usuario
     public Usuario getUsuario(){
 
         String dia = adapterDia.getItem(this.dia.getSelectedItemPosition());
-        String mes = adapterDia.getItem(this.mes.getSelectedItemPosition());
-        String ano = adapterDia.getItem(this.ano.getSelectedItemPosition());
+        String mes = adapterMes.getItem(this.mes.getSelectedItemPosition());
+        String ano = adapterAno.getItem(this.ano.getSelectedItemPosition());
 
-        String sexo = findViewById( this.sexo.getCheckedRadioButtonId() ).toString(); //PEGA O RADIO SELECIONADO
+        RadioButton rdo_sexo = findViewById(findViewById( this.sexo.getCheckedRadioButtonId()).getId()); //PEGA O RADIO SELECIONADO
+        String sexo = rdo_sexo.getText().toString(); //Pega o texto do radio
 
         if( sexo.equals("Masculino") ){
             sexo = "M";
@@ -307,6 +392,7 @@ public class PerfilDadosActivity extends AppCompatActivity {
 
         usuario.setNome( txt_nome.getText().toString() );
         usuario.setSobrenome( txt_sobrenome.getText().toString() );
+        usuario.setRg( txt_rg.getText().toString() );
         usuario.setCpf( txt_cpf.getText().toString() );
         usuario.setDtNasc( ano + "-" +  mes + "-" + dia);
         usuario.setSexo(sexo);
@@ -341,31 +427,71 @@ public class PerfilDadosActivity extends AppCompatActivity {
         Usuario usuario = getUsuario(); //Pega o endereco
         Endereco endereco = getEndereco(); //Pega o usuario
 
+        boolean ok = true;
+
         //Verifica campo a campo se ocorreu erro
-        if(usuario.getNome( ).equals(""))
+        if(usuario.getNome( ).equals("")){
             txt_nome.setError("O nome não pode estar em branco !");
-        if(usuario.getSobrenome( ).equals(""))
+            ok = false;
+        }
+
+        if(usuario.getSobrenome( ).equals("")){
             txt_sobrenome.setError("O sobrenome não pode estar em branco !");
-        if(usuario.getCpf( ).equals(""))
+            ok = false;
+        }
+
+        if(usuario.getCpf( ).equals("")){
             txt_cpf.setError("O CPF não pode estar em branco !");
-        if(usuario.getTelefone( ).equals(""))
+            ok = false;
+        }
+
+        if(usuario.getTelefone( ).equals("")){
             txt_telefone.setError("O telefone não pode estar em branco !");
-        if(usuario.getCelular( ).equals(""))
+            ok = false;
+        }
+
+        if(usuario.getCelular( ).equals("")){
             txt_celular.setError("O celular não pode estar em branco !");
-        if(usuario.getEmail( ).equals(""))
+            ok = false;
+        }
+
+        if(usuario.getEmail( ).equals("")){
             txt_email.setError("O email não pode estar em branco !");
-        if(usuario.getSenha( ).equals(""))
+            ok = false;
+        }
+
+        if(usuario.getSenha( ).equals("")){
             txt_senha.setError("A senha não pode estar em branco !");
-        if(endereco.getCep().equals(""))
+            ok = false;
+        }
+
+        if(endereco.getCep().equals("")){
             txt_cep.setError("O CEP não pode estar em branco");
-        if(endereco.getLogradouro().equals(""))
+            ok = false;
+        }
+
+        if(endereco.getLogradouro().equals("")){
             txt_logradouro.setError("O logradouro não pode estar em branco");
-        if(endereco.getBairro().equals(""))
+            ok = false;
+        }
+
+        if(endereco.getBairro().equals("")){
             txt_bairro.setError("O bairro não pode estar em branco");
-        if(endereco.getNumero().equals(""))
+            ok = false;
+        }
+
+        if(endereco.getNumero().equals("")){
             txt_numero.setError("O número não pode estar em branco");
+            ok = false;
+        }
+
+        //Se todos os campos foram preenchidos
+        if( ok ){
+
+         new addUsuario().execute( usuario );
 
 
+        }
 
     }
 
