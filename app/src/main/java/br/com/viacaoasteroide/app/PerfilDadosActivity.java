@@ -1,8 +1,10 @@
 package br.com.viacaoasteroide.app;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,17 +14,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 
 /**
@@ -33,6 +37,7 @@ public class PerfilDadosActivity extends AppCompatActivity {
 
     Spinner dia, mes, ano;
     Spinner estado, cidade;
+    ProgressBar progressBar;
     Button btn_cad_usuario; //Botão de salvar
     ArrayList<String> array_dias = new ArrayList<>();
     ArrayList<String> array_meses = new ArrayList<>();
@@ -44,7 +49,7 @@ public class PerfilDadosActivity extends AppCompatActivity {
 
     String API_URL;
     String estadoAtual;
-    int idCidadeAtual = 0;
+    int idCidadeAtual = 1;
     boolean novo;
 
 
@@ -137,6 +142,7 @@ public class PerfilDadosActivity extends AppCompatActivity {
 
         //Verificação
         btn_cad_usuario = findViewById(R.id.btn_cad_usuario);
+        progressBar = findViewById(R.id.progress_cad);
 
         novo = getIntent().getBooleanExtra( "novo" , false ); //Fala se é cadastro novo ou atualização
 
@@ -296,6 +302,8 @@ public class PerfilDadosActivity extends AppCompatActivity {
     public class addUsuario extends AsyncTask<Usuario, Void, Void>{
 
         String retornoApi;
+        boolean sucesso;
+        String nomeUser;
 
         @Override
         protected Void doInBackground(Usuario... usuarios) {
@@ -314,6 +322,7 @@ public class PerfilDadosActivity extends AppCompatActivity {
                 dados.put("senha" , user.getSenha() );
                 dados.put("email" , user.getEmail() );
                 dados.put("dtNasc" , user.getDtNasc() );
+                dados.put("idEndereco" , user.getIdEndereco() );
 
                 retornoApi = Http.post(API_URL + "/Usuario/Inserir", dados);
 
@@ -321,14 +330,10 @@ public class PerfilDadosActivity extends AppCompatActivity {
 
                     JSONObject retornoJson = new JSONObject(retornoApi);
 
-                    boolean sucesso = retornoJson.getBoolean("sucesso");
+                    sucesso = retornoJson.getBoolean("sucesso");
 
-                    //Verifica se foi realmente cadastrado
-                    if( sucesso ){
+                    nomeUser = user.getNome() + " " + user.getSobrenome();
 
-
-
-                    }
 
                 } catch (Exception e ){
 
@@ -339,10 +344,30 @@ public class PerfilDadosActivity extends AppCompatActivity {
             return null;
         }
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if( sucesso ){
+                alert("Tudo OK !" , "Parabéns " + nomeUser + " você foi devidamente cadastrado !");
+            }else{
+                alert("Opa !!!" ,nomeUser + " ocorreu um erro ao cadastra-lo. Por favor, tente novamente.");
+            }
+
+        }
     }
 
     //adiciona o endereco do usuario
     public class addEndereco extends AsyncTask<Endereco, Void, Void>{
+
+        String retornoApi;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btn_cad_usuario.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected Void doInBackground(Endereco... enderecos) {
@@ -351,10 +376,35 @@ public class PerfilDadosActivity extends AppCompatActivity {
 
                 //Monta o post a ser enviado a API
                 HashMap dados = new HashMap<String, String>();
+                dados.put("logradouro" , end.getLogradouro() );
+                dados.put("bairro" , end.getBairro() );
+                dados.put("numero" , end.getNumero() );
+                dados.put("tipoEndereco" , end.getIdTipoEndereco() );
+                dados.put("cep" , end.getCep() );
+                dados.put("codCidade" , end.getCodCidade() );
 
-                /*
-                    Realizar o CAD ENDEREÇO, FALTA A API
-                */
+                retornoApi = Http.post(API_URL + "/Endereco/CadastroEndereco", dados );
+
+                try{
+
+                    JSONObject obj = new JSONObject( retornoApi );
+
+                    if( obj.getBoolean("sucesso") ){
+
+                        Usuario usuario = getUsuario();
+
+                        usuario.setIdEndereco( obj.getInt("id") );
+
+                        new addUsuario().execute( usuario );
+
+                    }else{
+
+                        Log.d("Logggg" , obj.getString("_error"));
+                    }
+
+                } catch (Exception e ){
+
+                }
 
             }
 
@@ -366,7 +416,8 @@ public class PerfilDadosActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            finish();
+            progressBar.setVisibility(View.GONE);
+            btn_cad_usuario.setVisibility(View.VISIBLE);
 
         }
     }
@@ -424,8 +475,8 @@ public class PerfilDadosActivity extends AppCompatActivity {
 
     public void salvar(View v){
 
-        Usuario usuario = getUsuario(); //Pega o endereco
-        Endereco endereco = getEndereco(); //Pega o usuario
+        Usuario usuario = getUsuario(); //Pega o usuario
+        Endereco endereco = getEndereco(); //Pega o endereco
 
         boolean ok = true;
 
@@ -488,13 +539,27 @@ public class PerfilDadosActivity extends AppCompatActivity {
         //Se todos os campos foram preenchidos
         if( ok ){
 
-         new addUsuario().execute( usuario );
-
+            new addEndereco().execute( endereco );
 
         }
 
     }
 
+    private void alert(String titulo, String msg){
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this );
+
+        builder.setMessage(msg)
+                .setTitle(titulo);
+
+        builder.setPositiveButton("OK", null);
+
+        AlertDialog dialog = builder.create();
+
+        //mostrar o alerta
+        dialog.show();
+    }
 
     //Metodos Menu
     @Override

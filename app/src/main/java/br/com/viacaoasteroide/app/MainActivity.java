@@ -123,15 +123,6 @@ public class MainActivity extends Activity {
                     usuario.setIdCliente( objetoUsuario.getInt("idCliente") );
                     usuario.setNome( objetoUsuario.getString("nome") );
                     usuario.setSobrenome( objetoUsuario.getString("sobrenome") );
-                    /*usuario.setCpf( objeto.getString("cpf") );
-                    usuario.setRg( objeto.getString("rg") );
-                    usuario.setIdEndereco( objeto.getInt("endereco") );
-                    usuario.setSexo( objeto.getString("sexo") );
-                    usuario.setCelular( objeto.getString("celular") );
-                    usuario.setTelefone( objeto.getString("telefone") );
-                    usuario.setUsuario( objeto.getString("usuario") );
-                    usuario.setSenha( objeto.getString("senha") );
-                    usuario.setEmail( objeto.getString("email") );*/
 
                     //Altera as preferencias do usuario
                     editor.putBoolean( MANTER_CONECTADO, manterConectado.isChecked() );

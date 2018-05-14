@@ -259,10 +259,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:background="@drawable/button_comprar"
             android:padding="10dp"
             android:text="Comprar"
             android:textStyle="bold"
-            android:textColor="#126300"
+            android:textColor="#fff"
             android:onClick="qrCode"/>
 
     </LinearLayout>

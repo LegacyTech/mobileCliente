@@ -234,6 +234,7 @@ public class HomeActivity extends AppCompatActivity {
                 editor.clear();
                 editor.commit();
                 finish();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
         }
 
