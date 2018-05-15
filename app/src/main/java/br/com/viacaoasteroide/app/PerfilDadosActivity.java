@@ -1,6 +1,7 @@
 package br.com.viacaoasteroide.app;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -553,7 +554,12 @@ public class PerfilDadosActivity extends AppCompatActivity {
         builder.setMessage(msg)
                 .setTitle(titulo);
 
-        builder.setPositiveButton("OK", null);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
 
         AlertDialog dialog = builder.create();
 

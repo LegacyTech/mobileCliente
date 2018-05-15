@@ -201,8 +201,7 @@ public class PerfilActivity extends AppCompatActivity{
 
     //Botao DOCUMENTOS
     public void documentosAcitivity(View view) {
-        finish();
-        startActivity(new Intent(this, PerfilDadosActivity.class));
+        startActivity(new Intent(this, EditarDados.class));
     }
 
     @Override

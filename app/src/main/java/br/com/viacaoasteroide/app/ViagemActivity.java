@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class ViagemActivity extends AppCompatActivity {
     private TextView titulo_viagem , txt_descricao, txt_origem, txt_destino , txt_data;
     private TextView txt_hrSaida, txt_hrChegada, txt_preco, txt_paradas, txt_poltronas;
     private Button btn;
+    private LinearLayout linear_poltrona;
 
     private int idViagem;
     boolean passagem_comprada;
@@ -50,6 +52,8 @@ public class ViagemActivity extends AppCompatActivity {
         txt_paradas = findViewById(R.id.paradas_viagem);
         txt_poltronas = findViewById(R.id.poltrona_viagem);
 
+        linear_poltrona = findViewById(R.id.linear_poltrona);
+
         btn = findViewById(R.id.btn_viagem);
 
         idViagem = getIntent().getIntExtra("idViagem" , 0); //Pega o id que vem da HomeActivity ou PerfilActivity
@@ -57,6 +61,7 @@ public class ViagemActivity extends AppCompatActivity {
 
         if( passagem_comprada ){
             btn.setText("Gerar QRCode");
+            linear_poltrona.setVisibility(View.VISIBLE);
         }
 
         API_URL = getString(R.string.API_URL);
