@@ -1,10 +1,13 @@
 package br.com.viacaoasteroide.app;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by 16255204 on 15/05/2018.
@@ -30,11 +34,13 @@ public class EditarDados extends AppCompatActivity {
     private EditText txt_celular , txt_telefone , txt_cep, txt_logradouro, txt_bairro, txt_numero;
     private Spinner sp_estado , sp_cidade;
     private SharedPreferences preferencias;
-    private int idClitente;
+    private int idCliente;
     private String API_URL;
     private ArrayAdapter<String> adapterEstado , adapterCidade;
     private String estadoAtual;
     private  int idCidadeAtual = 1;
+    private int idEndereco = 0;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,14 +61,12 @@ public class EditarDados extends AppCompatActivity {
         sp_estado = findViewById(R.id.estado_editdados);
         sp_cidade = findViewById(R.id.cidade_editdados);
 
-        txt_telefone.addTextChangedListener(MaskEditUtil.mask(txt_telefone, MaskEditUtil.FORMAT_FONE)); //Mascara
-        txt_celular.addTextChangedListener(MaskEditUtil.mask(txt_celular, MaskEditUtil.FORMAT_CELULAR)); //Mascara
-
         //Preferencias
         preferencias = getSharedPreferences( getString(R.string.key_preferences) , Context.MODE_PRIVATE);
-        idClitente = preferencias.getInt("idCliente",0);
+        idCliente = preferencias.getInt("idCliente",0);
 
-        new popular().execute();
+        txt_telefone.addTextChangedListener(MaskEditUtil.mask(txt_telefone, MaskEditUtil.FORMAT_FONE)); //Mascara
+        txt_celular.addTextChangedListener(MaskEditUtil.mask(txt_celular, MaskEditUtil.FORMAT_CELULAR)); //Mascara
 
         //Parte estado
 
@@ -72,8 +76,6 @@ public class EditarDados extends AppCompatActivity {
         sp_estado.setAdapter(adapterEstado);
         sp_cidade.setAdapter(adapterCidade);
 
-        new populaEstado().execute();
-        new populaCidade().execute();
 
         estadoAtual = "Acre";
 
@@ -92,6 +94,17 @@ public class EditarDados extends AppCompatActivity {
             }
         });
 
+        sp_cidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                new getIdCidade().execute();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
     }
 
@@ -194,7 +207,7 @@ public class EditarDados extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             adapterCidade.addAll(arrayCidades);
-
+            new popularUsuario().execute(); //Popula o endereco
         }
 
     }
@@ -238,17 +251,18 @@ public class EditarDados extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             idCidadeAtual = idCidade;
+
         }
     }
 
     //Seta os dados do usuario - Fora o endereco
-    class popular extends AsyncTask<Void , Void, Void>{
+    class popularUsuario extends AsyncTask<Void , Void, Void>{
 
         String retornoApi;
         @Override
         protected Void doInBackground(Void... voids) {
 
-            retornoApi = Http.get(API_URL + "/Usuario/ListarPorID?id=" + idClitente );
+            retornoApi = Http.get(API_URL + "/Usuario/ListarPorID?id=" + idCliente );
 
             return null;
         }
@@ -257,7 +271,6 @@ public class EditarDados extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            Log.d("teste" , retornoApi + idClitente);
             try{
 
                 JSONObject obj = new JSONObject(retornoApi);
@@ -266,9 +279,15 @@ public class EditarDados extends AppCompatActivity {
 
                     JSONObject usuario = obj.getJSONObject("resultado");
 
-                    txt_telefone.setText( usuario.getString("telefone"));
-                    txt_celular.setText( usuario.getString("celular"));
-
+                    txt_telefone.setText( usuario.getString("telefone") );
+                    txt_celular.setText( usuario.getString("celular") );
+                    txt_cep.setText( usuario.getString("cep") );
+                    txt_logradouro.setText( usuario.getString("logradouro") );
+                    txt_bairro.setText( usuario.getString("bairro") );
+                    txt_numero.setText( usuario.getString("numero") );
+                    sp_cidade.setSelection( adapterCidade.getPosition( usuario.getString("cidade")) );//Seta o item do adapter
+                    sp_estado.setSelection( adapterEstado.getPosition( usuario.getString("estado") ) );//Seta o item do adapter
+                    idEndereco = usuario.getInt("idEndereco");
 
                 }
 
@@ -278,20 +297,58 @@ public class EditarDados extends AppCompatActivity {
         }
     }
 
-    class popularEndereco extends AsyncTask<Integer , Void , Void>{
+
+    public class salvar extends AsyncTask<Void , Void , Void>{
+
+        HashMap<String , String> dados = new HashMap<>();
+        String retornoApi;
+
         @Override
-        protected Void doInBackground(Integer... integers) {
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-            for( int endereco : integers ){
+            dados.put("idCliente" , idCliente + "");
+            dados.put("telefone" , txt_telefone.getText().toString() );
+            dados.put("celular" , txt_celular.getText().toString() );
+            dados.put("cep" , txt_cep.getText().toString() );
+            dados.put("codCidade" , idCidadeAtual + "" );
+            dados.put("logradouro" , txt_logradouro.getText().toString() );
+            dados.put("bairro" , txt_bairro.getText().toString() );
+            dados.put("numero" , txt_numero.getText().toString() );
+            dados.put("idEndereco" , idEndereco + "");
 
-                Log.d("Endereco" , endereco + "");
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            retornoApi = Http.post( API_URL + "/Usuario/AtualizarDados" , dados );
+
+            try{
+
+                JSONObject retorno = new JSONObject( retornoApi );
+
+                if( retorno.getBoolean("sucesso") ){
+                    finish();
+                }
+
+            } catch ( JSONException e){
 
             }
 
 
             return null;
         }
+
     }
+
+
+    public void salvarDados(View v){
+
+        new salvar().execute();
+
+    }
+
 
     //Metodos Menu
     @Override
@@ -305,4 +362,11 @@ public class EditarDados extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new populaEstado().execute();
+        new populaCidade().execute();
+    }
 }
+

@@ -260,7 +260,7 @@ public class PerfilDadosActivity extends AppCompatActivity {
     //Seta o ID da cidade atual
     class getIdCidade extends AsyncTask<Void, Void, Void>{
 
-        String cidadeSelecionada = adapterCidade.getItem(cidade.getSelectedItemPosition());
+        String cidadeSelecionada = adapterCidade.getItem( cidade.getSelectedItemPosition() );
         String retornoApi;
         int idCidade;
 
