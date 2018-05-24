@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,7 +68,7 @@ public class PerfilActivity extends AppCompatActivity{
                 Intent intent = new Intent( getApplicationContext() , ViagemActivity.class);
                 intent.putExtra("idViagem" , viagem.getIdViagem() );
                 intent.putExtra("passagem_comprada" , true);
-                intent.putExtra("poltrona" , "");
+                intent.putExtra("poltrona" , viagem.getPoltrona() );
                 startActivity(intent);
 
             }
@@ -192,6 +193,7 @@ public class PerfilActivity extends AppCompatActivity{
                     arrayViagem.getDouble("preco"),
                     arrayViagem.getString("dtIda"),
                     arrayViagem.getString("hrIda"));
+            viagem.setPoltrona( arrayViagem.getString("poltrona"));
             viagens.add(viagem);
 
         }

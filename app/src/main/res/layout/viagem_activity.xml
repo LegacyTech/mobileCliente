@@ -194,6 +194,7 @@
                 android:id="@+id/preco_viagem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#126300"
                 android:text="R$55.00"/>
 
 
@@ -218,14 +219,17 @@
                 android:textStyle="bold"
                 android:text="Paradas : " />
 
-            <TextView
-                android:id="@+id/paradas_viagem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Praia Grande"/>
+
 
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/paradas_viagem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Praia Grande"/>
 
         <LinearLayout
             android:id="@+id/linear_poltrona"
@@ -245,11 +249,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="Poltronas : " />
+                android:text="N° da Poltrona : " />
 
             <TextView
                 android:id="@+id/poltrona_viagem"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="25"/>
 
@@ -267,7 +271,7 @@
             android:text="Comprar"
             android:textStyle="bold"
             android:textColor="#fff"
-            android:onClick="qrCode"/>
+            android:onClick="comprar"/>
 
     </LinearLayout>
 

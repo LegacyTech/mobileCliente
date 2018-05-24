@@ -21,6 +21,7 @@ public class Viagem {
     private int idEpoca;
     private boolean finalizada;
     private String poltrona;
+    private String paradas;
 
     //CONSTRUCT METHODS
     public Viagem( int idViagem,
@@ -42,6 +43,14 @@ public class Viagem {
 
     //GETTERS AND SETTERS
 
+
+    public String getParadas() {
+        return paradas;
+    }
+
+    public void setParadas(String paradas) {
+        this.paradas = paradas;
+    }
 
     public int getIdViagem() {
         return idViagem;

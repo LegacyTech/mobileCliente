@@ -62,6 +62,9 @@ public class ViagemActivity extends AppCompatActivity {
         if( passagem_comprada ){
             btn.setText("Gerar QRCode");
             linear_poltrona.setVisibility(View.VISIBLE);
+            String poltrona = getIntent().getStringExtra("poltrona");
+            txt_poltronas.setText( poltrona );
+
         }
 
         API_URL = getString(R.string.API_URL);
@@ -106,6 +109,20 @@ public class ViagemActivity extends AppCompatActivity {
                     viagem.setHrChegada(jsonViagem.getString("hrChegada"));
                 }
 
+                jsonObject = new JSONObject( Http.get(API_URL + "/Viagem/BuscarParadas?idViagem=" + idViagem) );
+
+                jsonArray = jsonObject.getJSONArray("resultado");
+                String paradas = "";
+
+                for( int i = 0 ; i < jsonArray.length() ; i++ ){
+                    JSONObject parada = jsonArray.getJSONObject( i );
+                    if( i != 0)
+                        paradas += " , " + parada.getString("nomePonto");
+                    else
+                        paradas += parada.getString("nomePonto");
+                }
+                viagem.setParadas( paradas );
+
             } catch (JSONException e) {
 
                 e.printStackTrace();
@@ -122,6 +139,7 @@ public class ViagemActivity extends AppCompatActivity {
 
         }
     }
+
     //Metodos Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
@@ -135,9 +153,16 @@ public class ViagemActivity extends AppCompatActivity {
         return true;
     }
 
-    public void qrCode( View view ){
+    public void comprar( View view ){
 
-        Toast.makeText( this , "Gerar QR Code" , Toast.LENGTH_SHORT).show();
+        if( passagem_comprada ){
+            Toast.makeText( this , "Gerar QR Code" , Toast.LENGTH_SHORT).show();
+        }else{
+            Intent intent = new Intent( this , CompraActivity.class );
+            intent.putExtra("idViagem" , idViagem);
+            intent.putExtra("nomeViagem" , titulo_viagem.getText().toString() );
+            startActivity( intent );
+        }
 
     }
 
@@ -151,8 +176,7 @@ public class ViagemActivity extends AppCompatActivity {
         txt_hrSaida.setText(viagem.getHrPartida());
         txt_hrChegada.setText(viagem.getHrChegada());
         txt_preco.setText("R$" + viagem.getPreco());
-        txt_paradas.setText("");
-        txt_poltronas.setText("");
+        txt_paradas.setText( viagem.getParadas() );
 
     }
 

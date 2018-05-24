@@ -41,26 +41,34 @@
             android:text=" São Paulo"
             android:layout_marginRight="30dp"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_near_me_black_18dp"/>
-
-        <TextView
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Destino: "/>
-
-
-        <TextView
-            android:id="@+id/list_destino"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guarujá"/>
-
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="3dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_near_me_black_18dp"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Destino: "/>
+
+
+    <TextView
+        android:id="@+id/list_destino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guarujá"/>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

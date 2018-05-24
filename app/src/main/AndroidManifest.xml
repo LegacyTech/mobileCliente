@@ -20,6 +20,7 @@
         <activity android:name=".PerfilDadosActivity"></activity>
         <activity android:name=".ViagemActivity"></activity>
         <activity android:name=".EditarDados"></activity>
+        <activity android:name=".CompraActivity"></activity>
 
     </application>
 </manifest>
