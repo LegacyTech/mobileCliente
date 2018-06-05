@@ -209,6 +209,7 @@ public class CompraActivity extends AppCompatActivity {
                 alert("Passagem Comprada" , "O próximo passo é gerar o QRCode da passagem no seu perfil !" , true);
             }else{
                 alert("Atenção" , "Não foi possível realizar sua compra , tente mais tarde." , false);
+                Log.d("teste" , retorno );
             }
 
         }

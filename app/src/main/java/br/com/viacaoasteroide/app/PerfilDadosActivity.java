@@ -181,7 +181,7 @@ public class PerfilDadosActivity extends AppCompatActivity {
 
                         JSONObject estado = estados.getJSONObject(i);
 
-                        arrayEstados.add( estado.getString("nome"));
+                        arrayEstados.add( estado.getString("nomeEstado"));
 
                     }
 

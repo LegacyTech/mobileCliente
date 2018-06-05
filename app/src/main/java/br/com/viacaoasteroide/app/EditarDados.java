@@ -134,7 +134,7 @@ public class EditarDados extends AppCompatActivity {
 
                         JSONObject estado = estados.getJSONObject(i);
 
-                        arrayEstados.add( estado.getString("nome"));
+                        arrayEstados.add( estado.getString("nomeEstado"));
 
                     }
 
