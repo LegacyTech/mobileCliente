@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp">
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,13 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp">
-    </Spinner>
-    <Spinner
-        android:id="@+id/sp_ponto_parada_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:visibility="gone">
     </Spinner>
 
     <TextView
@@ -54,14 +45,10 @@
             android:layout_height="wrap_content"
             android:text="Cartão de crédito"/>
         <RadioButton
-            android:id="@+id/rdo_debito"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cartão de débito"/>
-        <RadioButton
             android:id="@+id/rdo_boleto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Boleto bancário"/>
     </RadioGroup>
 
@@ -74,6 +61,6 @@
         android:padding="10dp"
         android:text="Finalizar compra"
         android:textStyle="bold"
-        android:textColor="#fff" />
-
+        android:textColor="#fff"
+        android:onClick="comprarPassagem"/>
 </LinearLayout>

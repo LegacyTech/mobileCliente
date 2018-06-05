@@ -22,4 +22,5 @@ dependencies {
     compile 'com.android.support:design:26.+'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.+'
+    compile files('libs/picasso-2.5.2.jar')
 }

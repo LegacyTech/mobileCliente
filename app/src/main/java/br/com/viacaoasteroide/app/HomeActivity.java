@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
     ArrayAdapter<Viagem> adapter;
     TextView txt_busca;
     String API_URL;
+    String IMAGE_URL;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,11 +73,12 @@ public class HomeActivity extends AppCompatActivity {
 
 
         API_URL = getString(R.string.API_URL);
+        IMAGE_URL = getString(R.string.IMAGE_URL);
 
         //CRIAR E POPULAR A LISTA
         lista = (ListView) findViewById(R.id.list_viagens);
 
-        adapter = new ViagemAdapter(getApplicationContext(), new ArrayList<Viagem>(), true);
+        adapter = new ViagemAdapter(getApplicationContext(), new ArrayList<Viagem>(), true , IMAGE_URL);
 
         new popularViagens().execute();
 
@@ -204,6 +206,8 @@ public class HomeActivity extends AppCompatActivity {
                     arrayViagem.getDouble("preco"),
                     arrayViagem.getString("dtIda"),
                     arrayViagem.getString("hrIda"));
+
+            viagem.setImagem( arrayViagem.getString("imagem1") );
             viagens.add(viagem);
 
         }

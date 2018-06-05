@@ -34,6 +34,7 @@ public class PerfilActivity extends AppCompatActivity{
 
     ArrayAdapter<Viagem> adapter_proximas, adapter_historico;
     String API_URL;
+    String IMAGE_URL;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +46,8 @@ public class PerfilActivity extends AppCompatActivity{
 
 
         API_URL =  getString(R.string.API_URL);
+        IMAGE_URL = getString(R.string.IMAGE_URL);
+
         //Preferencias
         preferencias = getSharedPreferences( getString(R.string.key_preferences) , Context.MODE_PRIVATE);
 
@@ -54,7 +57,7 @@ public class PerfilActivity extends AppCompatActivity{
         //CRIAR E POPULAR A LISTA DE PROXIMAS VIAGENS
         lista_proximas_viagens = (ListView) findViewById(R.id.lista_proximas_viagens);
 
-        adapter_proximas = new ViagemAdapter(this, new ArrayList<Viagem>(), false);
+        adapter_proximas = new ViagemAdapter(this, new ArrayList<Viagem>(), false , IMAGE_URL);
 
         lista_proximas_viagens.setAdapter(adapter_proximas);
 
@@ -79,7 +82,7 @@ public class PerfilActivity extends AppCompatActivity{
         //CRIAR E POPULAR A LISTA DE HISTORICO VIAGENS
         lista_historico_viagens = (ListView) findViewById(R.id.lista_historico_viagens);
 
-        adapter_historico = new ViagemAdapter(this, new ArrayList<Viagem>(), false);
+        adapter_historico = new ViagemAdapter(this, new ArrayList<Viagem>(), false , IMAGE_URL);
 
         lista_historico_viagens.setAdapter(adapter_historico);
 
@@ -99,7 +102,7 @@ public class PerfilActivity extends AppCompatActivity{
 
             HashMap<String , String> valores = new HashMap<>();
             valores.put("id" , "" + preferencias.getInt("idCliente" , 0) );
-            valores.put("ativo" , ""+1);
+            valores.put("ativo" , ""+0);
 
             retornoApi = Http.post(API_URL + "/Passagem/PorUser" , valores );
 
@@ -143,7 +146,7 @@ public class PerfilActivity extends AppCompatActivity{
 
             HashMap<String , String> valores = new HashMap<>();
             valores.put("id" , "" + preferencias.getInt("idCliente" , 0) );
-            valores.put("ativo" , ""+0);
+            valores.put("ativo" , ""+1);
 
             retornoApi = Http.post(API_URL + "/Passagem/PorUser" , valores );
 

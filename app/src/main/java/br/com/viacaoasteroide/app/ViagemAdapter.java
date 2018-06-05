@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -19,13 +22,14 @@ import java.util.ArrayList;
 public class ViagemAdapter extends ArrayAdapter<Viagem> {
 
     TextView origem, destino, preco, dtIda, hrSaida;
-    LinearLayout capa;
+    ImageView capa;
     boolean pg_principal;
+    String IMAGE_URL;
 
-    public ViagemAdapter (Context context, ArrayList<Viagem> lista, boolean pg_principal){
+    public ViagemAdapter (Context context, ArrayList<Viagem> lista, boolean pg_principal , String url){
         super(context,0,lista);
         this.pg_principal = pg_principal;
-
+        IMAGE_URL = url;
     }
 
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent ) {
@@ -40,7 +44,7 @@ public class ViagemAdapter extends ArrayAdapter<Viagem> {
         preco = (TextView) v.findViewById(R.id.list_preco);
         dtIda = (TextView) v.findViewById(R.id.list_dtIda);
         hrSaida = (TextView) v.findViewById(R.id.list_hrSaida);
-        capa = (LinearLayout) v.findViewById(R.id.capa_viagem);
+        capa = (ImageView) v.findViewById(R.id.capa_viagem);
 
         if( !pg_principal){
             capa.setVisibility(View.GONE);
@@ -53,6 +57,8 @@ public class ViagemAdapter extends ArrayAdapter<Viagem> {
         preco.setText(  "" + viagem.getPreco() );
         dtIda.setText( viagem.getDtPartida() );
         hrSaida.setText( viagem.getHrPartida() );
+
+        Picasso.with(getContext()).load(IMAGE_URL +"/viacao_asteroide/" + viagem.getImagem() ).into(capa);
 
         return v;
     }
