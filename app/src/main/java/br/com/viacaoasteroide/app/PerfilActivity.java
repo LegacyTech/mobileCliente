@@ -70,6 +70,7 @@ public class PerfilActivity extends AppCompatActivity{
                 Viagem  viagem = (Viagem) lista_proximas_viagens.getItemAtPosition(i); //Pega a viagem na lista
                 Intent intent = new Intent( getApplicationContext() , ViagemActivity.class);
                 intent.putExtra("idViagem" , viagem.getIdViagem() );
+                intent.putExtra("idPassagem" , viagem.getIdPassagem() );
                 intent.putExtra("passagem_comprada" , true);
                 intent.putExtra("poltrona" , viagem.getPoltrona() );
                 startActivity(intent);
@@ -197,6 +198,7 @@ public class PerfilActivity extends AppCompatActivity{
                     arrayViagem.getString("dtIda"),
                     arrayViagem.getString("hrIda"));
             viagem.setPoltrona( arrayViagem.getString("poltrona"));
+            viagem.setIdPassagem( arrayViagem.getInt("idPassagem"));
             viagens.add(viagem);
 
         }

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Mobile Cliente.iml" filepath="$PROJECT_DIR$/Mobile Cliente.iml" />
+      <module fileurl="file://C:\Users\16255204\Desktop\ViacaoAsteroide\Mobile Cliente.iml" filepath="C:\Users\16255204\Desktop\ViacaoAsteroide\Mobile Cliente.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ViacaoAsteroide.iml" filepath="$PROJECT_DIR$/ViacaoAsteroide.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

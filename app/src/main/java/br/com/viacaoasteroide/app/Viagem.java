@@ -23,6 +23,7 @@ public class Viagem {
     private String poltrona;
     private String paradas;
     private String imagem;
+    private int idPassagem;
 
     //CONSTRUCT METHODS
     public Viagem( int idViagem,
@@ -44,6 +45,14 @@ public class Viagem {
 
     //GETTERS AND SETTERS
 
+
+    public int getIdPassagem() {
+        return idPassagem;
+    }
+
+    public void setIdPassagem(int idPassagem) {
+        this.idPassagem = idPassagem;
+    }
 
     public String getImagem() {
         return imagem;

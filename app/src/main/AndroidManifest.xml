@@ -23,6 +23,7 @@
         <activity android:name=".ViagemActivity"></activity>
         <activity android:name=".EditarDados"></activity>
         <activity android:name=".CompraActivity"></activity>
+        <activity android:name=".QrCodeActivity"></activity>
 
     </application>
 </manifest>

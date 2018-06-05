@@ -164,7 +164,10 @@ public class ViagemActivity extends AppCompatActivity {
     public void comprar( View view ){
 
         if( passagem_comprada ){
-            Toast.makeText( this , "Gerar QR Code" , Toast.LENGTH_SHORT).show();
+            int idPassagem = getIntent().getIntExtra("idPassagem" , 0);
+            Intent intent = new Intent( this , QrCodeActivity.class );
+            intent.putExtra("idPassagem" , idPassagem);
+            startActivity( intent );
         }else{
             Intent intent = new Intent( this , CompraActivity.class );
             intent.putExtra("idViagem" , idViagem);
