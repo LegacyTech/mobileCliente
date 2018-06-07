@@ -58,7 +58,7 @@ public class ViagemAdapter extends ArrayAdapter<Viagem> {
         dtIda.setText( viagem.getDtPartida() );
         hrSaida.setText( viagem.getHrPartida() );
 
-        Picasso.with(getContext()).load(IMAGE_URL +"/viacao_asteroide/" + viagem.getImagem() ).into(capa);
+        Picasso.with(getContext()).load(IMAGE_URL + viagem.getImagem() ).into(capa);
 
         return v;
     }

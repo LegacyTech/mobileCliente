@@ -179,7 +179,7 @@ public class ViagemActivity extends AppCompatActivity {
 
     public void popularActivity( Viagem viagem ){
 
-        Picasso.with(this).load(IMAGE_URL +"/viacao_asteroide/" + viagem.getImagem() ).into(capa);
+        Picasso.with(this).load(IMAGE_URL + viagem.getImagem() ).into(capa);
         titulo_viagem.setText(viagem.getPontoChegada());
         txt_descricao.setText(viagem.getDescricao());
         txt_origem.setText(viagem.getPontoPartida());
